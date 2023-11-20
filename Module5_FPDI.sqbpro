@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="/Users/arjunreddypulugu/Documents/DBMS ASSIGNMNETS/Module5.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1789"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,8:mainAttendee"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">CREATE TABLE &quot;Event&quot; (
+	&quot;Event_ID&quot;	INTEGER NOT NULL,
+	&quot;Name&quot;	TEXT,
+	&quot;Agenda&quot;	TEXT,
+	&quot;Date&quot;	date,
+	&quot;Location&quot;	TEXT,
+	PRIMARY KEY(&quot;Event_ID&quot; AUTOINCREMENT)
+);
+
+CREATE TABLE &quot;Speaker&quot; (
+	&quot;Speaker_ID&quot;	INTEGER NOT NULL,
+	&quot;Name&quot;	TEXT,
+	&quot;Contact_info&quot;	TEXT,
+	&quot;Email_address&quot;	TEXT,
+	&quot;Organisation&quot;	TEXT,
+	PRIMARY KEY(&quot;Speaker_ID&quot; AUTOINCREMENT)
+);
+
+CREATE TABLE &quot;Session&quot; (
+    &quot;Session_ID&quot; INTEGER PRIMARY KEY AUTOINCREMENT,
+    &quot;Name&quot; TEXT,
+    &quot;Start_time&quot; TIME,
+    &quot;End_time&quot; TIME,
+    &quot;Event_ID&quot; INTEGER,
+    &quot;Speaker_ID&quot; INTEGER,
+    FOREIGN KEY (&quot;Event_ID&quot;) REFERENCES &quot;Event&quot; (&quot;Event_ID&quot;),
+    FOREIGN KEY (&quot;Speaker_ID&quot;) REFERENCES &quot;Speaker&quot; (&quot;Speaker_ID&quot;)
+);
+
+CREATE TABLE &quot;Attendee&quot; (
+	&quot;Attendee_ID&quot;	INTEGER NOT NULL,
+	&quot;Name&quot;	TEXT,
+	&quot;Contact_info&quot;	TEXT,
+	&quot;Email_address&quot;	TEXT,
+	PRIMARY KEY(&quot;Attendee_ID&quot; AUTOINCREMENT)
+);
+
+CREATE TABLE &quot;Registration&quot; (
+	&quot;Registration_ID&quot;	INTEGER NOT NULL,
+	&quot;Attendee_ID&quot;	INTEGER,
+	&quot;Session_ID&quot;	INTEGER,
+	&quot;Payment_info&quot;	TEXT,
+	&quot;Date_of_Registration&quot;	date,
+	PRIMARY KEY(&quot;Registration_ID&quot; AUTOINCREMENT),
+	FOREIGN KEY (&quot;Attendee_ID&quot;) REFERENCES &quot;Attendee&quot; (&quot;Attendee_ID&quot;),
+	FOREIGN KEY (&quot;Session_ID&quot;) REFERENCES &quot;Session&quot; (&quot;Session_ID&quot;)
+);
+
+CREATE TABLE &quot;Feedback&quot; (
+	&quot;Feedback_ID&quot;	INTEGER NOT NULL,
+	&quot;Attendee_ID&quot;	INTEGER,
+	&quot;Session_ID&quot;	INTEGER,
+	&quot;Feedback_info&quot;	TEXT,
+	&quot;Rating&quot; REAL,
+	PRIMARY KEY(&quot;Feedback_ID&quot; AUTOINCREMENT),
+	FOREIGN KEY (&quot;Attendee_ID&quot;) REFERENCES &quot;Attendee&quot; (&quot;Attendee_ID&quot;),
+	FOREIGN KEY (&quot;Session_ID&quot;) REFERENCES &quot;Session&quot; (&quot;Session_ID&quot;)
+);
+
+INSERT  INTO Event ( Name, Agenda,  &quot;Date&quot; , Location)
+VALUES ( &quot;Orientation&quot;, 	&quot;Welcome Session&quot;,	&quot;2023-04-10&quot;,	&quot;Ball Room, CSC&quot;),
+                  ( &quot;Coop&quot;,	&quot;Coop Program&quot;	,&quot;2023-04-15&quot;	,	&quot;Sterns Center  3&quot;),
+				  ( &quot;Talent Connect&quot; ,	&quot;Networking&quot;	,&quot;2023-04-20&quot;	,	&quot;103, Robinson Hall&quot;)
+				  
+				  
+INSERT  INTO Speaker ( Name, Contact_info, Email_address , Organisation)
+VALUES  (&quot;John Smith&quot;,	&quot;+1 (123) 456-7890&quot;,	&quot;john.smith@email.com&quot;,		&quot;Northeastern University&quot;	),
+	(&quot;Mary Johnson&quot;,	&quot;+1 (234) 567-8901&quot;,	&quot;mary.johnson@email.com&quot;,	&quot;Consultant Group&quot;),
+	(&quot;Robert Davis&quot;,	&quot;+1 (345) 678-9012&quot;,	&quot;robert.davis@email.com&quot;,	&quot;Northeastern University&quot;),
+	(&quot;Sarah Wilson&quot;,	&quot;+1 (456) 789-0123&quot;,	&quot;sarah.wilson@email.com&quot;,	&quot;Talent Corporation&quot;)
+	
+INSERT INTO Session (Name,  Start_time, End_time, Event_ID, Speaker_ID)
+VALUES (&quot;Welcome Address&quot;,  &quot;09:00&quot;	,&quot;10:30&quot;,  1, 1)	,
+                   (	&quot; Panel Discussion&quot;  ,&quot;11:00&quot;,	&quot;12:30&quot;,  3, 4),
+				    (		&quot;Coop Program&quot; , &quot;14:00&quot;	,&quot;16:00&quot;, 2, 3),
+				    (	&quot;Networking Session&quot;, &quot;10:30&quot;	,&quot;12:00&quot;, 3, 2)
+					
+INSERT INTO Attendee(Name,  Contact_info, Email_address)
+VALUES (&quot;Arjun Reddy&quot;,  &quot;+16173310120&quot;	,&quot;arjunreddy@gmail.com&quot;)	,
+                    (	&quot; Lauren Ogburn&quot;  ,&quot;+16173310121&quot;,	&quot;Lauren@gmail.com&quot;),
+				    (	&quot; Praveen&quot;  ,&quot;+16173310121&quot;,	&quot;praveen@gmail.com&quot;),
+				    (		&quot;Naresh Kumar&quot; , &quot;+16173310122&quot;	,&quot;Naresh@gmail.com&quot;),
+				    (	&quot; Poorva Joshi&quot;, &quot;+16713130120&quot;	,&quot;Poorva@gmail.com&quot;),
+					( &quot;Tanvi Sunil&quot;, &quot;+16171330120&quot;, &quot;Tanvi@gmail.com&quot;),
+					(&quot;Hazique&quot;, &quot;+12136172120&quot;, &quot;hazique@gmail.com&quot;),
+					(&quot;Emma &quot;, &quot;+!2134411210&quot;, &quot;emmawatson@gmail.com&quot; ) 
+					
+					
+INSERT into Registration( Attendee_ID, Session_ID, Payment_info, Date_of_Registration)
+VALUES ( 1, 1, &quot;Paid&quot;, &quot;2023-04-01&quot;),
+				  ( 2, 1, &quot;Paid&quot;, &quot;2023-04-01&quot;),
+				   (3, 2, &quot;Due&quot;, &quot;2023-04-10&quot;),
+				   (4, 3, &quot;Paid&quot;, &quot;2023-04-10&quot;),
+				   (5, 2, &quot;Paid&quot;, &quot;2023-04-15&quot;),
+				   (1, 2, &quot;Due&quot;, &quot;2023-04-11&quot;),
+				   (6, 4, &quot;Paid&quot;, &quot;2023-04-17&quot;),
+				   (7, 4, &quot;Paid&quot;, &quot;2023-04-13&quot;),
+				   (3, 1, &quot;Paid&quot;, &quot;2023-04-07&quot;),
+				   (8, 3, &quot;Paid&quot;, &quot;2023-04-10&quot;)
+				   
+INSERT INTO Feedback( Attendee_ID, Session_ID, Feedback_info, Rating)
+VALUES (4, 3,  &quot;Coop event boosted my morale in searching for interships&quot;, 5),
+					 (1, 1,  &quot;Orientation was engaging and informative&quot;, 4.8),
+		            (2, 1,  &quot;An invaluable experience&quot;, 5),
+					(1,2,  &quot;A must attend event for career-minded individuals&quot;, 4.9),
+					 (3, 2,  &quot;Met inspiring industry experts and mentors&quot;, 5),
+					  (5, 2,  &quot;Boosted my  career prospects&quot;, 5),
+					   (3 ,1,  &quot;Crucial start for a successful journey&quot;, 5),
+					    (8, 3,  &quot;Well structured and welcoming&quot;, 5),
+						(7,4, &quot;A networking goldmine&quot;, 5),
+						(6,4, &quot;Very informational&quot;, 4.7)
+			
+ --Retrieves the Session Name, Speaker Name, and Attendee Name for Sessions with Attendees who provided Feedback with a Rating of 5;			
+SELECT S.Name AS &quot;Session Name&quot;, SP.Name AS &quot;Speaker Name&quot;, A.Name AS &quot;Attendee Name&quot;
+FROM Session S
+JOIN Feedback F ON S.Session_ID = F.Session_ID
+JOIN Speaker SP ON S.Speaker_ID = SP.Speaker_ID
+JOIN Attendee A ON F.Attendee_ID = A.Attendee_ID
+WHERE F.Rating = 5; 
+
+--Sessions and Speakers for the 'Talent Connect' Event That Are Scheduled to Start After 10:00 AM:
+SELECT S.Name AS &quot;Session Name&quot;, SP.Name AS &quot;Speaker Name&quot;
+FROM Session S
+JOIN Speaker SP ON S.Speaker_ID = SP.Speaker_ID
+JOIN Event E ON S.Event_ID = E.Event_ID
+WHERE E.Name = 'Talent Connect' AND S.Start_time &gt; '10:00';
+
+--Sessions with Attendees who Have Paid for Registration, Showing Event Name and Payment Info:
+SELECT S.Name AS &quot;Session Name&quot;, E.Name AS &quot;Event Name&quot;, R.Payment_info
+FROM Session S
+JOIN Event E ON S.Event_ID = E.Event_ID
+JOIN Registration R ON S.Session_ID = R.Session_ID
+WHERE R.Payment_info = 'Paid';
+
+--Select the Speaker Name and Event Date for Sessions with 'Due' Payment Information:
+SELECT SP.Name AS &quot;Speaker Name&quot;, E.&quot;Date&quot; AS &quot;Event Date&quot;
+FROM Session S
+JOIN Speaker SP ON S.Speaker_ID = SP.Speaker_ID
+JOIN Event E ON S.Event_ID = E.Event_ID
+JOIN Registration R ON S.Session_ID = R.Session_ID
+WHERE R.Payment_info = 'Due';
+
+--List of Attendees and the Average Rating of Their Feedback:
+SELECT A.Name AS &quot;Attendee Name&quot;, AVG(F.Rating) AS &quot;Average Rating&quot;
+FROM Attendee A
+JOIN Feedback F ON A.Attendee_ID = F.Attendee_ID
+GROUP BY A.Name;
+
+
+
+
+
+
+						
+						
+						
+						
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+				  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
