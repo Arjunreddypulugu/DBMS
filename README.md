@@ -1,5 +1,6 @@
 # Introduction
 Project name: Event-Based Management
+
 I have chosen to embark on the development of an event management system, recognizing the significance of corporate events within the realm of business growth. This concept has piqued my interest, as such a system is designed to assist event organizers in the seamless organization, execution, and coordination of corporate events, encompassing conferences, job expos, seminars, meetings, and the like. This web-based application allows event attendees to register for and attend these events efficiently. Additionally, it empowers companies to strategically engage external stakeholders by harnessing insights derived from data collected during previous events.
 
 The application comprises the following key features:
